@@ -23,6 +23,29 @@ document.addEventListener("DOMContentLoaded", () => {
     document.documentElement.lang = currentLang;
   }
 
+  // Extensión del cambio de idioma para placeholders
+    function updatePlaceholders(lang) {
+    const fields = document.querySelectorAll("[data-es-placeholder]");
+    fields.forEach(field => {
+        field.placeholder = field.getAttribute(`data-${lang}-placeholder`);
+    });
+    }
+
+    function toggleLanguage() {
+    const elements = document.querySelectorAll("[data-es]");
+    currentLang = currentLang === "es" ? "en" : "es";
+
+    elements.forEach(el => {
+        el.textContent = el.getAttribute(`data-${currentLang}`);
+    });
+
+    updatePlaceholders(currentLang);
+
+    langToggle.textContent = currentLang === "es" ? "EN" : "ES";
+    langToggleMobile.textContent = currentLang === "es" ? "EN" : "ES";
+    document.documentElement.lang = currentLang;
+    }
+
   langToggle.addEventListener("click", toggleLanguage);
   langToggleMobile.addEventListener("click", toggleLanguage);
 });
